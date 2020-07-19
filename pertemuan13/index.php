@@ -1,12 +1,19 @@
 <?php 
-    require 'functions.php';
-    // data mahasiswa
-    $mahasiswa = query("SELECT * FROM mahasiswa");
+session_start();
 
-    // tombol cari ditekan
-    if ( isset($_POST["cari"]) ) {
-        $mahasiswa = cari($_POST["keyword"]);
-    }
+if ( !isset($_SESSION["login"]) ) {
+    header("Location: login.php");
+    exit;
+} 
+
+require 'functions.php';
+// data mahasiswa
+$mahasiswa = query("SELECT * FROM mahasiswa");
+
+// tombol cari ditekan
+if ( isset($_POST["cari"]) ) {
+    $mahasiswa = cari($_POST["keyword"]);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +23,8 @@
     <title>Halaman Admin</title>
 </head>
 <body>
+    <a href="logout.php">Logout</a>
+
     <h1>Data Mahasiswa</h1>
     
     <a href="tambah.php">Tambah Data Mahasiswa</a>
